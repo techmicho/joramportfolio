@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Project placeholder">
+  <rect width="800" height="450" fill="#eceff3"/>
+  <rect x="180" y="105" width="440" height="240" rx="24" fill="#d9dee6"/>
+  <path d="M250 285l110-110 82 82 48-48 90 76H250z" fill="#afb8c4"/>
+  <circle cx="505" cy="175" r="32" fill="#ff7a00"/>
+  <text x="400" y="385" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" fill="#4d5663">Project Image</text>
+</svg>

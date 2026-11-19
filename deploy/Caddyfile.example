@@ -1,0 +1,43 @@
+# Reference Caddyfile for the portfolio.
+# The deploy script generates this automatically at /etc/caddy/Caddyfile.
+#
+# Replace:
+#   portfolio.example.com  -> your domain (or use :80 for HTTP/IP access)
+#   /var/www/portfolio     -> your install path
+#   php8.3-fpm.sock        -> your installed PHP-FPM version
+
+portfolio.example.com {
+	root * /var/www/portfolio
+	encode zstd gzip
+
+	# Keep the old static URLs working: /about.html -> /about.php
+	@legacy path_regexp legacy ^/(index|about|skills|projects|resume|contact)\.html$
+	redir @legacy /{re.legacy.1}.php 301
+
+	# /admin has no index.php; send visitors to the login page
+	@adminRoot path /admin /admin/
+	redir @adminRoot /admin/login.php 302
+
+	# Security: block server-side internals, SQL dumps, dotfiles, and
+	# executable files inside uploads. Caddy's file_server "hide" is not a
+	# security boundary, so this explicit matcher does the blocking.
+	@blocked path_regexp blocked `^/(?:includes|database|dist|deploy)(?:/|$)|^/uploads/.*\.(?:php|phtml|phar)(?:/|$)|\.sql$|\.md$|(?:^|/)\.[^/]+`
+	handle @blocked {
+		respond 404
+	}
+
+	# Static asset caching
+	@static path /css/* /js/* /images/* /uploads/*
+	header @static Cache-Control "public, max-age=604800"
+
+	@nocache path /css/style.css /js/script.js
+	header @nocache Cache-Control "no-cache, no-store, must-revalidate"
+
+	# PHP + static files
+	handle {
+		php_fastcgi unix//run/php/php8.3-fpm.sock {
+			try_files {path} {path}/index.php =404
+		}
+		file_server
+	}
+}

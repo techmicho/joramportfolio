@@ -1,0 +1,29 @@
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+includes/config.local.php
+
+# Build artifacts
+/dist/
+/vendor/
+
+# Runtime uploads: keep the folders and server config, ignore uploaded media
+/uploads/*
+!/uploads/.gitkeep
+!/uploads/.htaccess
+!/uploads/profile/
+!/uploads/projects/
+!/uploads/achievements/
+/uploads/profile/*
+!/uploads/profile/.gitkeep
+/uploads/projects/*
+!/uploads/projects/.gitkeep
+/uploads/achievements/*
+!/uploads/achievements/.gitkeep
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

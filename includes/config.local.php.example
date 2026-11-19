@@ -1,0 +1,14 @@
+<?php
+
+// Copy this file to config.local.php and enter your database credentials.
+// On the Ubuntu server, deploy/ubuntu-caddy-deploy.sh writes config.local.php
+// automatically, so this template is only needed for local development.
+// Never commit config.local.php.
+return [
+    'DB_HOST' => '127.0.0.1',
+    'DB_PORT' => 3306,
+    'DB_NAME' => 'portfolio',
+    'DB_USER' => 'portfolio',
+    'DB_PASSWORD' => '',
+    'ADMIN_SETUP_KEY' => 'replace-with-a-long-random-private-key',
+];
